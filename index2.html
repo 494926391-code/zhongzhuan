@@ -1,0 +1,644 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>住宅 IP 中转落地服务</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",
+    "Microsoft YaHei",Arial,sans-serif;
+    color:#f5f8ff;
+    background:#06101d;
+    line-height:1.7;
+}
+a{text-decoration:none;color:inherit}
+
+/* ===== 背景 ===== */
+body:before{
+    content:"";
+    position:fixed;
+    width:600px;
+    height:600px;
+    right:-200px;
+    top:-200px;
+    background:#087dff;
+    opacity:.10;
+    filter:blur(130px);
+    pointer-events:none;
+}
+body:after{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    left:-250px;
+    top:500px;
+    background:#00d9ff;
+    opacity:.06;
+    filter:blur(120px);
+    pointer-events:none;
+}
+
+/* ===== 导航 ===== */
+header{
+    position:fixed;
+    left:0;
+    right:0;
+    top:0;
+    z-index:99;
+    background:rgba(5,14,26,.72);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+.nav{
+    max-width:1180px;
+    height:70px;
+    margin:auto;
+    padding:0 22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+.logo{
+    font-size:21px;
+    font-weight:700;
+}
+.logo b{color:#36c8ff}
+.nav-links{
+    display:flex;
+    gap:32px;
+    color:#9baec4;
+    font-size:14px;
+}
+.nav-links a:hover{color:#fff}
+.nav-contact{
+    border:1px solid rgba(49,182,255,.4);
+    padding:8px 18px;
+    border-radius:22px;
+    color:#7bdcff;
+}
+
+/* ===== Hero ===== */
+.hero{
+    max-width:1180px;
+    min-height:780px;
+    margin:auto;
+    padding:150px 22px 100px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-items:center;
+    gap:70px;
+}
+.tag{
+    display:inline-block;
+    padding:6px 14px;
+    border:1px solid rgba(50,187,255,.25);
+    background:rgba(31,139,255,.08);
+    color:#6bd6ff;
+    border-radius:30px;
+    font-size:13px;
+    margin-bottom:24px;
+}
+.hero h1{
+    font-size:clamp(42px,5vw,67px);
+    line-height:1.12;
+    letter-spacing:-2px;
+}
+.hero h1 span{
+    background:linear-gradient(90deg,#fff,#48ceff);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+.hero-desc{
+    margin-top:25px;
+    max-width:570px;
+    color:#92a6bd;
+    font-size:16px;
+}
+.hero-desc strong{color:#dcecff}
+.buttons{
+    display:flex;
+    gap:14px;
+    margin-top:32px;
+}
+.btn{
+    padding:13px 25px;
+    border-radius:9px;
+    font-size:14px;
+}
+.primary{
+    background:linear-gradient(135deg,#087cff,#21caff);
+    box-shadow:0 10px 35px rgba(20,145,255,.22);
+}
+.secondary{
+    border:1px solid rgba(255,255,255,.10);
+    background:rgba(255,255,255,.035);
+    color:#cad7e7;
+}
+
+/* ===== Hero流程图 ===== */
+.flow-box{
+    position:relative;
+    padding:32px;
+    border-radius:25px;
+    border:1px solid rgba(65,174,255,.16);
+    background:rgba(12,29,49,.72);
+    box-shadow:0 25px 80px rgba(0,0,0,.22);
+}
+.flow-title{
+    color:#9eb4cc;
+    text-align:center;
+    font-size:13px;
+    margin-bottom:25px;
+}
+.flow{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+.flow-item{
+    display:flex;
+    align-items:center;
+    gap:17px;
+    padding:18px;
+    border-radius:13px;
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(255,255,255,.06);
+}
+.flow-icon{
+    width:46px;
+    height:46px;
+    flex:none;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(36,158,255,.10);
+    color:#49cfff;
+    font-size:21px;
+}
+.flow-item h3{font-size:15px}
+.flow-item p{
+    color:#72869d;
+    font-size:12px;
+}
+.flow-arrow{
+    text-align:center;
+    color:#35c9ff;
+    font-size:19px;
+}
+.flow-highlight{
+    border-color:rgba(43,202,255,.30);
+    box-shadow:0 0 30px rgba(0,178,255,.06);
+}
+
+/* ===== 通用 ===== */
+.section{
+    max-width:1180px;
+    margin:auto;
+    padding:100px 22px;
+}
+.section-head{
+    text-align:center;
+    margin-bottom:50px;
+}
+.section-head small{
+    color:#43caff;
+    letter-spacing:2px;
+}
+.section-head h2{
+    font-size:35px;
+    margin-top:5px;
+}
+.section-head p{
+    color:#7e92aa;
+    margin-top:8px;
+}
+
+/* ===== 服务特点 ===== */
+.features{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+.feature{
+    padding:28px 24px;
+    min-height:215px;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:16px;
+    background:rgba(14,30,49,.68);
+    transition:.3s;
+}
+.feature:hover{
+    transform:translateY(-5px);
+    border-color:rgba(55,190,255,.3);
+}
+.feature-icon{
+    width:44px;
+    height:44px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:11px;
+    background:rgba(43,158,255,.10);
+    color:#45caff;
+    font-size:21px;
+}
+.feature h3{
+    margin-top:18px;
+    font-size:17px;
+}
+.feature p{
+    margin-top:8px;
+    color:#8296ad;
+    font-size:13px;
+}
+
+/* ===== 使用场景 ===== */
+.use-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+.use-card{
+    padding:28px;
+    border-radius:16px;
+    background:linear-gradient(
+        145deg,
+        rgba(17,37,60,.8),
+        rgba(10,24,41,.7)
+    );
+    border:1px solid rgba(255,255,255,.07);
+}
+.use-card h3{font-size:18px}
+.use-card p{
+    color:#8498af;
+    font-size:14px;
+    margin-top:8px;
+}
+
+/* ===== 客户端 ===== */
+.clients{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+.client{
+    min-width:170px;
+    padding:20px;
+    text-align:center;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(16,34,55,.7);
+}
+.client strong{display:block}
+.client span{
+    color:#71869d;
+    font-size:12px;
+}
+
+/* ===== CTA ===== */
+.cta{
+    max-width:1000px;
+    margin:40px auto 100px;
+    padding:70px 25px;
+    text-align:center;
+    border-radius:25px;
+    border:1px solid rgba(44,183,255,.18);
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(18,144,255,.13),
+            transparent 65%
+        ),
+        rgba(10,26,44,.75);
+}
+.cta h2{font-size:37px}
+.cta p{
+    color:#8195ac;
+    margin-top:10px;
+}
+.contact{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:13px;
+    margin-top:27px;
+}
+.contact-item{
+    padding:11px 19px;
+    border-radius:9px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.07);
+    color:#c8d7e8;
+}
+.contact-item b{color:#55d0ff}
+
+/* ===== Footer ===== */
+footer{
+    padding:30px 20px;
+    text-align:center;
+    color:#52677e;
+    font-size:12px;
+    border-top:1px solid rgba(255,255,255,.05);
+}
+
+/* ===== 手机 ===== */
+@media(max-width:850px){
+    .nav-links{display:none}
+    .hero{
+        grid-template-columns:1fr;
+        padding-top:120px;
+        gap:45px;
+    }
+    .features{
+        grid-template-columns:1fr 1fr;
+    }
+}
+@media(max-width:550px){
+    .hero h1{font-size:43px}
+    .buttons{flex-direction:column}
+    .btn{text-align:center}
+    .features,.use-grid{
+        grid-template-columns:1fr;
+    }
+    .section{padding:70px 18px}
+    .flow-box{padding:20px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="nav">
+    <div class="logo">住宅IP <b>· 中转落地</b></div>
+
+    <div class="nav-links">
+        <a href="#service">服务</a>
+        <a href="#process">使用流程</a>
+        <a href="#client">客户端</a>
+        <a href="#contact">联系我们</a>
+    </div>
+
+    <a href="#contact" class="nav-contact">立即咨询</a>
+</div>
+</header>
+
+
+<!-- ================= 首屏 ================= -->
+<section class="hero">
+
+<div>
+
+    <div class="tag">RESIDENTIAL IP · TRANSIT · EXIT</div>
+
+    <h1>
+        住宅 IP<br>
+        <span>中转落地方案</span>
+    </h1>
+
+    <div class="hero-desc">
+        <strong>你提供住宅 IP，我们负责中转配置。</strong><br>
+        将住宅 IP 接入中转服务器，配置完成后，
+        客户即可通过小火箭、Clash、软路由等设备进行接入使用。
+    </div>
+
+    <div class="buttons">
+        <a href="#contact" class="btn primary">获取配置方案</a>
+        <a href="#process" class="btn secondary">查看使用流程</a>
+    </div>
+
+</div>
+
+
+<!-- 右侧流程 -->
+<div class="flow-box">
+
+    <div class="flow-title">
+        简单三步 · 完成住宅 IP 落地
+    </div>
+
+    <div class="flow">
+
+        <div class="flow-item">
+            <div class="flow-icon">①</div>
+            <div>
+                <h3>客户提供住宅 IP</h3>
+                <p>使用有授权的住宅 IP / ISP IP</p>
+            </div>
+        </div>
+
+        <div class="flow-arrow">↓</div>
+
+        <div class="flow-item flow-highlight">
+            <div class="flow-icon">②</div>
+            <div>
+                <h3>接入中转服务器</h3>
+                <p>进行线路配置与出口落地</p>
+            </div>
+        </div>
+
+        <div class="flow-arrow">↓</div>
+
+        <div class="flow-item">
+            <div class="flow-icon">③</div>
+            <div>
+                <h3>客户端直接使用</h3>
+                <p>小火箭 / Clash / 软路由</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- ================= 服务特点 ================= -->
+<section class="section" id="service">
+
+<div class="section-head">
+    <small>SERVICE</small>
+    <h2>我们提供什么</h2>
+    <p>专注住宅 IP 中转与落地配置</p>
+</div>
+
+<div class="features">
+
+    <div class="feature">
+        <div class="feature-icon">⌂</div>
+        <h3>住宅 IP 接入</h3>
+        <p>
+            支持接入客户自行购买并获得授权使用的
+            住宅 IP / ISP IP。
+        </p>
+    </div>
+
+    <div class="feature">
+        <div class="feature-icon">⇄</div>
+        <h3>中转服务器</h3>
+        <p>
+            使用优化线路服务器作为中转入口，
+            根据实际需求配置网络转发。
+        </p>
+    </div>
+
+    <div class="feature">
+        <div class="feature-icon">◎</div>
+        <h3>地区落地</h3>
+        <p>
+            根据住宅 IP 所在地区进行出口落地，
+            方便不同地区业务进行网络接入。
+        </p>
+    </div>
+
+    <div class="feature">
+        <div class="feature-icon">⚙</div>
+        <h3>客户端适配</h3>
+        <p>
+            配置完成后，可根据客户端支持情况
+            使用相应的接入方式。
+        </p>
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- ================= 使用流程 ================= -->
+<section class="section" id="process">
+
+<div class="section-head">
+    <small>HOW IT WORKS</small>
+    <h2>使用流程</h2>
+    <p>从住宅 IP 到客户端，只需要几个步骤</p>
+</div>
+
+<div class="use-grid">
+
+    <div class="use-card">
+        <h3>01 · 准备住宅 IP</h3>
+        <p>
+            客户自行购买合法授权使用的住宅 IP，
+            准备 IP、端口、账号密码等连接信息。
+        </p>
+    </div>
+
+    <div class="use-card">
+        <h3>02 · 提供连接信息</h3>
+        <p>
+            将住宅 IP 的连接信息提供给我们，
+            根据实际需求进行中转配置。
+        </p>
+    </div>
+
+    <div class="use-card">
+        <h3>03 · 配置中转落地</h3>
+        <p>
+            将住宅 IP 配置到中转服务器，
+            建立入口到住宅 IP 的网络转发。
+        </p>
+    </div>
+
+    <div class="use-card">
+        <h3>04 · 导入客户端</h3>
+        <p>
+            根据客户端支持情况配置连接，
+            在小火箭、Clash 或软路由上使用。
+        </p>
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- ================= 客户端 ================= -->
+<section class="section" id="client">
+
+<div class="section-head">
+    <small>CLIENT SUPPORT</small>
+    <h2>多端接入</h2>
+    <p>配置完成后，可在常见客户端和网络设备中使用</p>
+</div>
+
+<div class="clients">
+
+    <div class="client">
+        <strong>小火箭</strong>
+        <span>iOS 客户端</span>
+    </div>
+
+    <div class="client">
+        <strong>Clash</strong>
+        <span>Windows / Android / macOS 等</span>
+    </div>
+
+    <div class="client">
+        <strong>软路由</strong>
+        <span>路由器 / 网关设备</span>
+    </div>
+
+    <div class="client">
+        <strong>PC / 手机</strong>
+        <span>支持代理配置的设备</span>
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+<section class="cta" id="contact">
+
+<h2>需要住宅 IP 中转落地？</h2>
+
+<p>
+提供你的住宅 IP 信息，我们根据实际情况配置中转方案。
+</p>
+
+<div class="contact">
+
+    <div class="contact-item">
+        Telegram：
+        <b>@yywenyi</b>
+    </div>
+
+    <div class="contact-item">
+        QQ：
+        <b>1510405254</b>
+    </div>
+
+</div>
+
+<div class="buttons" style="justify-content:center">
+
+    <a
+      href="https://t.me/yywenyi"
+      target="_blank"
+      class="btn primary">
+      Telegram 联系
+    </a>
+
+</div>
+
+</section>
+
+
+<footer>
+© 2026 住宅 IP · 中转落地服务
+</footer>
+
+</body>
+</html>
+```
